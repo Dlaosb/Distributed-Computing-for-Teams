@@ -5,6 +5,7 @@
 // 	digits: "9876543210",
 // 	lowerdigits: "9876543210zyxwvutsrqponmlkjihgfedcba",
 // 	upperdigits: "9876543210ZYXWVUTSRQPONMLKJIHGFEDCBA",
+// 	alllettersdigits: "9876543210ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba"
 // 	lettersdigits: "ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba",
 // 	lettersdigitsspecial: "!@#$%^&*()+=[]{};:,.<>?/\"'\\|~`9876543210ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba"
 // };
@@ -124,7 +125,13 @@
 *
 **/
 
-Outside in
+
+			
+onmessage = function(e) {
+	console.log("calling worker messaging center");
+	crackingMd5(e.data.length, e.data.hash);
+}
+
 function MD5(string) {
 
     function RotateLeft(lValue, iShiftBits) {
@@ -332,9 +339,11 @@ function MD5(string) {
 // Success, Failure, End 
 
 
-function crackingMd5 (length, targetHash, success, failure, end) {
+function crackingMd5(length, targetHash) {
 
 let lowerChar = "abcdefghijklmnopqrstuvwxyz";
+let alllettersdigits = "9876543210ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba";
+
 	// Generates combinations of checks and compares to the targetHash
 	// Once we find, don't generate anything else 
 	// call success and end function 
@@ -345,7 +354,7 @@ let lowerChar = "abcdefghijklmnopqrstuvwxyz";
 	var stack = [""];
 	var count = 0;
 	var started = (new Date()).getTime();
-
+	console.log("started: ", Date());
 	while (true) {
 		
 		// Stack is empty, no matches were found
@@ -353,13 +362,11 @@ let lowerChar = "abcdefghijklmnopqrstuvwxyz";
 		if (stack.length === 0) {
 			//var time = generateTimeString(started);
 			//onend(count, time);
-			console.log("STACK IS EMPTY");
 			break;
 		}
 
 		// Pop the top of the stack
 		var curr = stack.pop();
-		console.log("curr", curr)
 		// If popped item is the length we're looking for
 		if (curr.length >= length) {
 			// Increase count
@@ -373,25 +380,23 @@ let lowerChar = "abcdefghijklmnopqrstuvwxyz";
 				// Call onsuccess and exit
 				// var time = generateTimeString(started);
 				// onsuccess(curr, count, time);
-				console.log("you found the hash", hash);
+				console.log("you found the hash", hash, curr, Date());
 				break;
 			}
 			else {
 				// Call onfailure and let the loop run again
 				// var time = generateTimeString(started);
 				// onfailure(curr, count, time);
-				console.log("this was wrong:", curr);
 			}
 		}
 		// Otherwise, push current item appended with every
 		// possible char in the charset back to the stack
 		else {
-			for (var i = 0; i < lowerChar.length; i++) {
-				stack.push(curr.concat(lowerChar.charAt(i)));
+			for (var i = 0; i < alllettersdigits.length; i++) {
+				stack.push(curr.concat(alllettersdigits.charAt(i)));
 			}
 		}
 	}
-	console.log("DIDNT WORK");
 }
 
 

@@ -1,0 +1,25 @@
+{
+  "name": "Distributed-Computing-for-Teams",
+  "version": "1.0.0",
+  "description": "A platform for users to share CPU intensive problems across a distributed network of computers, built with JavaScript.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dlaosb/Distributed-Computing-for-Teams.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dlaosb/Distributed-Computing-for-Teams/issues"
+  },
+  "homepage": "https://github.com/Dlaosb/Distributed-Computing-for-Teams#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "nodemon": "^1.10.2"
+  }
+}
